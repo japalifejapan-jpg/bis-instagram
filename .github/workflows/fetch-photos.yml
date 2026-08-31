@@ -1,0 +1,33 @@
+name: fetch-photos
+on:
+  workflow_dispatch:
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download product photos
+        run: |
+          mkdir -p photos
+          python3 - <<'EOF'
+          import json, urllib.request
+          src = json.load(open('photos/sources.json'))
+          for it in src:
+              p = 'photos/' + it['id'] + '.jpg'
+              try:
+                  req = urllib.request.Request(it['url'], headers={'User-Agent': 'Mozilla/5.0'})
+                  data = urllib.request.urlopen(req, timeout=30).read()
+                  open(p, 'wb').write(data)
+                  print('ok', p, len(data))
+              except Exception as e:
+                  print('err', it['id'], e)
+          EOF
+      - name: Commit
+        run: |
+          git config user.name "bis-bot"
+          git config user.email "bot@bis.local"
+          git add photos
+          git diff --cached --quiet || git commit -m "fetch product photos from Rakuten"
+          git push
