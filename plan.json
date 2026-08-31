@@ -1,0 +1,42 @@
+{
+  "_readme": "週2回（火・金）の投稿ローテーション。slot は ISO週番号を12で割った余り×2 +（火=0/金=1）で選ぶ。",
+  "account": "bis.dsts",
+  "email_to": "japalife.japan@gmail.com",
+  "size": {"master": [1031, 1373], "instagram": [1099, 1373], "note": "マスターは4:5未満のため、投稿用は左右にクリーム余白を足す"},
+  "slots": [
+    {"i": 0,  "day": "tue", "product": "金の米粉", "url": "https://item.rakuten.co.jp/bis-direct/511/", "type": "D_スペック訴求型", "bg": "bg/rice_bread.jpg"},
+    {"i": 1,  "day": "fri", "product": "米粉パンケーキミックス", "url": "https://item.rakuten.co.jp/bis-direct/512/", "type": "G_レシピ・使い方型", "bg": "bg/pancakes.jpg"},
+    {"i": 2,  "day": "tue", "product": "きなこっこ", "url": "https://item.rakuten.co.jp/bis-direct/515/", "type": "C_商品紹介型", "bg": "bg/kinako_bowl.jpg"},
+    {"i": 3,  "day": "fri", "product": "金の米粉", "url": "https://item.rakuten.co.jp/bis-direct/511/", "type": "H_豆知識・比較型", "bg": "bg/rice_flour.jpg"},
+    {"i": 4,  "day": "tue", "product": "銀の米粉（製菓用）", "url": "https://item.rakuten.co.jp/bis-direct/516/", "type": "B_技術解説型", "bg": "bg/rice_flour.jpg"},
+    {"i": 5,  "day": "fri", "product": "米粉パンケーキミックス", "url": "https://item.rakuten.co.jp/bis-direct/512/", "type": "F_お客様の声型", "bg": "bg/family_table.jpg"},
+    {"i": 6,  "day": "tue", "product": "きなこっこ", "url": "https://item.rakuten.co.jp/bis-direct/515/", "type": "I_季節・行事型", "bg": "bg/kinako_baby_meal.jpg"},
+    {"i": 7,  "day": "fri", "product": "カレースパイス", "url": "https://item.rakuten.co.jp/bis-direct/551/", "type": "G_レシピ・使い方型", "bg": "bg/kitchen_warm.jpg"},
+    {"i": 8,  "day": "tue", "product": "金の米粉", "url": "https://item.rakuten.co.jp/bis-direct/511/", "type": "B_技術解説型", "bg": "bg/rice_bread.jpg"},
+    {"i": 9,  "day": "fri", "product": "セイロンシナモン", "url": "https://item.rakuten.co.jp/bis-direct/501/", "type": "D_スペック訴求型", "bg": "bg/kitchen_warm.jpg"},
+    {"i": 10, "day": "tue", "product": "BIS株式会社（企業）", "url": "https://bestisha.com/", "type": "A_ブランドストーリー型", "bg": "bg/texture_cream.jpg"},
+    {"i": 11, "day": "fri", "product": "米粉そうめん", "url": "https://item.rakuten.co.jp/bis-direct/517-sp/", "type": "C_商品紹介型", "bg": "bg/rice_flour.jpg"},
+    {"i": 12, "day": "tue", "product": "きなこっこ", "url": "https://item.rakuten.co.jp/bis-direct/515/", "type": "E_開発秘話型", "bg": "bg/kinako_bowl.jpg"},
+    {"i": 13, "day": "fri", "product": "米粉パンケーキミックス", "url": "https://item.rakuten.co.jp/bis-direct/512/", "type": "D_スペック訴求型", "bg": "bg/pancakes.jpg"},
+    {"i": 14, "day": "tue", "product": "銀の米粉（製菓用）", "url": "https://item.rakuten.co.jp/bis-direct/513/", "type": "G_レシピ・使い方型", "bg": "bg/rice_flour.jpg"},
+    {"i": 15, "day": "fri", "product": "カレースパイス", "url": "https://item.rakuten.co.jp/bis-direct/551/", "type": "H_豆知識・比較型", "bg": "bg/kitchen_warm.jpg"},
+    {"i": 16, "day": "tue", "product": "金の米粉", "url": "https://item.rakuten.co.jp/bis-direct/511-2/", "type": "F_お客様の声型", "bg": "bg/rice_bread.jpg"},
+    {"i": 17, "day": "fri", "product": "きなこっこ", "url": "https://item.rakuten.co.jp/bis-direct/515/", "type": "H_豆知識・比較型", "bg": "bg/kinako_baby_meal.jpg"},
+    {"i": 18, "day": "tue", "product": "BIS株式会社（企業）", "url": "https://bestisha.com/", "type": "J_製造現場型", "bg": "bg/texture_cream.jpg"},
+    {"i": 19, "day": "fri", "product": "米粉パンケーキミックス", "url": "https://item.rakuten.co.jp/bis-direct/512/", "type": "I_季節・行事型", "bg": "bg/family_table.jpg"},
+    {"i": 20, "day": "tue", "product": "金の米粉", "url": "https://item.rakuten.co.jp/bis-direct/511/", "type": "C_商品紹介型", "bg": "bg/rice_flour.jpg"},
+    {"i": 21, "day": "fri", "product": "セイロンシナモン", "url": "https://item.rakuten.co.jp/bis-direct/501/", "type": "G_レシピ・使い方型", "bg": "bg/kitchen_warm.jpg"},
+    {"i": 22, "day": "tue", "product": "きなこっこ", "url": "https://item.rakuten.co.jp/bis-direct/515/", "type": "D_スペック訴求型", "bg": "bg/kinako_bowl.jpg"},
+    {"i": 23, "day": "fri", "product": "銀の米粉（製菓用）", "url": "https://item.rakuten.co.jp/bis-direct/516/", "type": "B_技術解説型", "bg": "bg/rice_flour.jpg"}
+  ],
+  "product_images": {
+    "きなこっこ": "product/kinakokko.jpg"
+  },
+  "rules": [
+    "商品を紹介する回は、1枚目に必ず実物の商品画像を使う（product_images になければ photos/ から探すか、生成背景のみのカバーにする）",
+    "生成画像（bg/）は背景・イメージとしてのみ使い、商品そのものの写真として提示しない",
+    "薬機法NG表現（治る・改善・予防・痩せる等）を使わない",
+    "ランキング表現には部門名と時期を必ず添える",
+    "直近4投稿と型・商品が重複しないようにする"
+  ]
+}
