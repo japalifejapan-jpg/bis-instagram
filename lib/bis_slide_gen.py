@@ -113,6 +113,59 @@ def rule(d, cx, y, half=150, col=GOLD_LT, wpx=2):
     d.line([(cx - half, y), (cx + half, y)], fill=col, width=wpx)
 
 # ---------- スライド ----------
+def _content_bbox(im, thr=238):
+    g = im.convert("L").point(lambda p: 255 if p < thr else 0)
+    return g.getbbox() or (0, 0, im.width, im.height)
+
+
+def product_hero(base, prod_path, target_h=0.50, center_y=0.335, fade=0.16):
+    """白背景の商品写真をクリーム地になじませて主役配置する。
+    白をクリームに変換し、下端をぼかして地に溶かす。"""
+    if not (prod_path and os.path.exists(prod_path)):
+        return base
+    im = Image.open(prod_path).convert("RGB")
+    x0, y0, x1, y1 = _content_bbox(im)
+    cw, chh = x1 - x0, y1 - y0
+    if cw <= 0 or chh <= 0:
+        return base
+
+    # 白 -> クリーム に寄せる（商品自体もわずかに暖色へ）
+    im = Image.merge("RGB", [c.point(lambda v, s=s: int(v * s)) for c, s in
+                             zip(im.split(), [CREAM[0] / 255, CREAM[1] / 255, CREAM[2] / 255])])
+
+    scale = (H * target_h) / chh
+    scale = min(scale, (W * 0.90) / cw)
+    nw, nh = max(1, int(im.width * scale)), max(1, int(im.height * scale))
+    im = im.resize((nw, nh), Image.LANCZOS)
+    ccx = (x0 + x1) / 2 * scale
+    ccy = (y0 + y1) / 2 * scale
+    px = int(W / 2 - ccx)
+    py = int(H * center_y - ccy)
+
+    # 下端をなめらかに地へ溶かす
+    a = Image.new("L", (nw, nh), 255)
+    ad = ImageDraw.Draw(a)
+    f_h = int(nh * fade)
+    for i in range(f_h):
+        ad.line([(0, nh - 1 - i), (nw, nh - 1 - i)], fill=int(255 * (i / max(1, f_h)) ** 0.85))
+    # 左右・上端も軽くぼかして、写真の四角い境目を消す
+    f_s = max(8, int(nw * 0.05))
+    for i in range(f_s):
+        v = int(255 * (i / f_s) ** 0.8)
+        ad.line([(i, 0), (i, nh)], fill=min(v, a.getpixel((i, nh // 2))))
+        ad.line([(nw - 1 - i, 0), (nw - 1 - i, nh)], fill=min(v, a.getpixel((nw - 1 - i, nh // 2))))
+    f_t = max(8, int(nh * 0.04))
+    for i in range(f_t):
+        v = int(255 * (i / f_t) ** 0.8)
+        for x in range(nw):
+            a.putpixel((x, i), min(v, a.getpixel((x, i))))
+    canvas_a = Image.new("L", (W, H), 0)
+    canvas_a.paste(a, (px, py))
+    canvas_im = Image.new("RGB", (W, H), CREAM)
+    canvas_im.paste(im, (px, py))
+    return Image.composite(canvas_im, base, canvas_a)
+
+
 def product_card(img, prod_path, cx, cy, box_w, box_h):
     """商品画像を角丸＋やわらかい影のカードとして配置（中心 cx,cy）"""
     if not (prod_path and os.path.exists(prod_path)):
@@ -142,16 +195,13 @@ def slide_cover(sp, photo=None):
     photo_top = 0.58   # 上部にビジュアル、下 42% にコピー
 
     if prod and os.path.exists(prod):
-        base = load_cover(bg) if (bg and os.path.exists(bg)) else cream_base(None)
+        # 生成背景をごく薄く敷いたクリーム地に、商品写真を主役配置
+        img = cream_base(bg, 0.80)
+        img = product_hero(img, prod)
     elif photo and os.path.exists(photo):
-        base = load_cover(photo)
+        img = scrim(load_cover(photo), frac=1 - photo_top + 0.06)
     else:
-        base = cream_base(bg, 0.55)
-
-    img = scrim(base, frac=1 - photo_top + 0.06)
-    if prod and os.path.exists(prod):
-        img = product_card(img, prod, W * 0.5, H * photo_top * 0.50,
-                           int(W * 0.62), int(H * photo_top * 0.86))
+        img = cream_base(bg, 0.55)
 
     d = ImageDraw.Draw(img)
     logo(d, 74, 58, 44, GOLD)
