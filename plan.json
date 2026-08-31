@@ -145,10 +145,10 @@
   {
    "i": 16,
    "day": "tue",
-   "product": "金の米粉",
-   "url": "https://item.rakuten.co.jp/bis-direct/511-2/",
-   "type": "F_お客様の声型",
-   "bg": "bg/rice_bread.jpg"
+   "product": "オートミールパウダー",
+   "url": "https://item.rakuten.co.jp/bis-direct/522/",
+   "type": "C_商品紹介型",
+   "bg": "bg/kitchen_warm.jpg"
   },
   {
    "i": 17,
@@ -177,10 +177,10 @@
   {
    "i": 20,
    "day": "tue",
-   "product": "金の米粉",
-   "url": "https://item.rakuten.co.jp/bis-direct/511/",
-   "type": "C_商品紹介型",
-   "bg": "bg/rice_flour.jpg"
+   "product": "リカバリ穴あきテーピングシート",
+   "url": "https://item.rakuten.co.jp/bis-direct/109/",
+   "type": "D_スペック訴求型",
+   "bg": "bg/texture_cream.jpg"
   },
   {
    "i": 21,
@@ -224,7 +224,9 @@
   "生成画像（bg/）は背景・イメージとしてのみ使い、商品そのものの写真として提示しない",
   "薬機法NG表現（治る・改善・予防・痩せる等）を使わない",
   "ランキング表現には部門名と時期を必ず添える",
-  "直近4投稿と型・商品が重複しないようにする"
+  "直近4投稿と型・商品が重複しないようにする",
+  "リカバリ穴あきテーピングシートは食品ではなくTapeJapan正規代理店商品。食のトーンではなく、体のケアの文脈で書くこと。効能効果の断定（治る・痛みが取れる等）は絶対に書かない。",
+  "オートミールパウダーは商品ページ（522）の記載を必ず確認してから数値・特徴を書くこと。ファクトシートに未収録のため創作しない。"
  ],
  "missing_product_images": [
   "米粉そうめん"
