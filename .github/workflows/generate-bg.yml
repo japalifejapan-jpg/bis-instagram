@@ -16,7 +16,7 @@ jobs:
           prompts = json.load(open('bg/prompts.json'))
           for it in prompts:
               q = urllib.parse.quote(it['p'])
-              url = f"https://image.pollinations.ai/prompt/{q}?width=1373&height=1031&nologo=true&seed=7"
+              url = f"https://image.pollinations.ai/prompt/{q}?width=1031&height=1373&nologo=true&seed=7"
               p = 'bg/' + it['id'] + '.jpg'
               for attempt in range(3):
                   try:
