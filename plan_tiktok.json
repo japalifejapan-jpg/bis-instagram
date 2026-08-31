@@ -1,0 +1,136 @@
+{
+ "_readme": "TikTok 週1回（日曜朝7:00）のローテーション。slot = ISO週番号 % 12。Instagramと違い、商品訴求より『最後まで見られること』を優先する。",
+ "email_to": "japalife.japan@gmail.com",
+ "cadence": "毎週日曜 7:00 JST",
+ "length": "15〜30秒",
+ "goal": "リーチ最大化 → プロフィールから Instagram @bis.dsts と楽天 D'sTs直営店へ送客",
+ "principles": [
+  "最初の1秒で結論か違和感を出す。ロゴやブランド名から始めない",
+  "商品は後半（後ろ1/3）に軽く出す。前半は完全に『役に立つ』か『面白い』に振る",
+  "縦型 1080×1920。テロップは常時、画面中央よりやや上（UIに隠れない位置）",
+  "音は無音でも意味が通るようにテロップを入れる。BGMはトレンド音源を想定",
+  "1本1メッセージ。詰め込まない",
+  "薬機法NG表現（治る・改善・予防・痩せる等）は動画でもテロップでも使わない",
+  "「アレルギーが出ない」「絶対安全」は絶対に言わない。『8大アレルゲン不使用』など事実表記のみ"
+ ],
+ "hook_patterns": [
+  "◯◯だと思ってた人、手挙げて",
+  "知らないと損してる◯◯",
+  "え、小麦粉じゃないの？",
+  "9割の人が間違えてる◯◯",
+  "これ、全部◯◯でできてます",
+  "ママ友に聞かれて一番困る質問"
+ ],
+ "slots": [
+  {
+   "i": 0,
+   "format": "検証",
+   "concept": "米粉パン vs 小麦パン、膨らみ対決",
+   "product": "金の米粉",
+   "url": "https://item.rakuten.co.jp/bis-direct/511/",
+   "hook": "米粉パンって膨らまないと思ってた"
+  },
+  {
+   "i": 1,
+   "format": "ASMR",
+   "concept": "焼きたて米粉パンをちぎる音・湯気",
+   "product": "金の米粉",
+   "url": "https://item.rakuten.co.jp/bis-direct/511/",
+   "hook": "音だけで伝わるもっちり感"
+  },
+  {
+   "i": 2,
+   "format": "あるある",
+   "concept": "アレルギー児ママの『おやつ問題』あるある3連発",
+   "product": "米粉パンケーキミックス",
+   "url": "https://item.rakuten.co.jp/bis-direct/512/",
+   "hook": "アレっ子ママにしか分からないやつ"
+  },
+  {
+   "i": 3,
+   "format": "豆知識",
+   "concept": "グルテンフリーとノングルテンの違い（1ppmの話）",
+   "product": "金の米粉",
+   "url": "https://item.rakuten.co.jp/bis-direct/511/",
+   "hook": "この2つ、実は全然違います"
+  },
+  {
+   "i": 4,
+   "format": "時短レシピ",
+   "concept": "混ぜて焼くだけ。15秒で分かる米粉パンケーキ",
+   "product": "米粉パンケーキミックス",
+   "url": "https://item.rakuten.co.jp/bis-direct/512/",
+   "hook": "材料これだけ"
+  },
+  {
+   "i": 5,
+   "format": "意外な使い方",
+   "concept": "米粉の天ぷら・カレーのとろみ付け・唐揚げ",
+   "product": "金の米粉",
+   "url": "https://item.rakuten.co.jp/bis-direct/511/",
+   "hook": "米粉、パンだけに使ってる人"
+  },
+  {
+   "i": 6,
+   "format": "共感ストーリー",
+   "concept": "『家族で同じおやつを食べられた日』の再現",
+   "product": "米粉パンケーキミックス",
+   "url": "https://item.rakuten.co.jp/bis-direct/512/",
+   "hook": "うちの子、初めてみんなと同じもの食べた"
+  },
+  {
+   "i": 7,
+   "format": "製造の裏側",
+   "concept": "湿式気流粉砕を10秒で説明（工場・粉のスロー映像）",
+   "product": "金の米粉",
+   "url": "https://item.rakuten.co.jp/bis-direct/511/",
+   "hook": "この粉、作り方が異常"
+  },
+  {
+   "i": 8,
+   "format": "比較",
+   "concept": "スプーン1杯に牛乳220ml分のカルシウム（実物並べて可視化）",
+   "product": "きなこっこ",
+   "url": "https://item.rakuten.co.jp/bis-direct/515/",
+   "hook": "この小さじ1杯、何に相当すると思う？"
+  },
+  {
+   "i": 9,
+   "format": "スパイス入門",
+   "concept": "カレーはスパイス4種で成立する",
+   "product": "カレースパイス",
+   "url": "https://item.rakuten.co.jp/bis-direct/551/",
+   "hook": "スパイスカレー、4種類でいけます"
+  },
+  {
+   "i": 10,
+   "format": "朝ルーティン",
+   "concept": "離乳食にひとさじ足すだけの朝（生活動画）",
+   "product": "きなこっこ",
+   "url": "https://item.rakuten.co.jp/bis-direct/515/",
+   "hook": "朝の3分、これだけ変えた"
+  },
+  {
+   "i": 11,
+   "format": "地域・企業",
+   "concept": "広島県三原市の小さな会社が米粉に本気を出した話",
+   "product": "BIS株式会社",
+   "url": "https://bestisha.com/",
+   "hook": "広島の田舎から、こんな粉が出てます"
+  }
+ ],
+ "cta": {
+  "on_screen": "プロフィールから→",
+  "caption_tail": "作り方とレシピは Instagram @bis.dsts に載せてます🍞",
+  "note": "TikTokアカウントのハンドルが決まったら、ここに追記して固定コメント用の文言も用意する"
+ },
+ "output_spec": {
+  "aspect": "9:16",
+  "size": "1080×1920",
+  "duration_sec": [
+   15,
+   30
+  ],
+  "safe_area": "上下それぞれ15%はUIに隠れる前提でテロップを置かない"
+ }
+}
