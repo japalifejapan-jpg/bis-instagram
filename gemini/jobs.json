@@ -1,14 +1,25 @@
 {
- "_readme": "このファイルを更新して push すると gemini-image ワークフローが自動で走り、gemini/out/<id>.png が生成されます。",
- "jobs": [
-  {
-   "id": "test01_kinakokko_cover",
-   "aspect_ratio": "4:5",
-   "source_images": [
-    "product/kinakokko.jpg"
-   ],
-   "prompt": "You are a professional Japanese graphic designer creating an Instagram carousel cover for a Japanese food brand called D'sTs.\n\nThe attached image is the actual product package: a baby nutrition kinako (roasted soybean flour) powder called きなこっこ, for babies from 9 months old. Keep this package EXACTLY as it is - do not redraw, alter, or restyle the package artwork or its text. Composite it into the scene as the hero object.\n\nCreate a bright, warm, appetising scene around it: a light wood table seen from slightly above, soft natural morning light from a window, a small wooden bowl of fine golden kinako powder, a scattering of whole soybeans, and a wooden baby spoon. Shallow depth of field, clean and airy, high key photography, in the style of Japanese food advertising.\n\nColour palette: warm cream (#FDF6E3), soft yellow (#FFD633), natural wood tones, white.\n\nLeave generous clean empty space in the UPPER THIRD of the frame so that Japanese headline text can be placed there later. Do NOT render any text, letters, numbers, logos or watermarks anywhere in the image except the text that is already printed on the product package itself.\n\nVertical portrait composition, photorealistic, high resolution, sharp focus on the package."
-  }
- ],
- "_run": 1789300932
+  "_readme": "このファイルを更新して push すると gemini-image ワークフローが自動で走り、gemini/out/<id>.png が生成されます。",
+  "jobs": [
+    {
+      "id": "k02_problem",
+      "aspect_ratio": "4:5",
+      "prompt": "A Japanese mother in her early 30s sitting at a dining table in a bright modern Japanese apartment, looking down at a small ceramic baby bowl of half-eaten baby food with a slightly troubled, worried expression, one hand resting near her cheek. Natural soft daylight from a window, light wood table, clean minimal interior, warm neutral colours. She is positioned on the RIGHT side of the frame. Leave the LEFT half of the frame relatively clean and uncluttered so that text can be placed there later. Photorealistic, shot on a 50mm lens, shallow depth of field, high key Japanese advertising photography style, natural skin tones, realistic hands. Do not render any text, letters, numbers, logos or watermarks anywhere in the image."
+    },
+    {
+      "id": "k03_mixing",
+      "aspect_ratio": "4:5",
+      "prompt": "Close up of a woman's hands sprinkling fine golden roasted soybean flour (kinako) from a small wooden spoon into a white ceramic bowl of plain yogurt, on a light wood kitchen table. Morning sunlight, soft shadows, a few whole soybeans scattered nearby, clean minimal Japanese kitchen in soft focus behind. Only the hands are visible, no face. Photorealistic, appetising, high key Japanese food advertising photography, realistic natural hands with correct fingers. Leave clean empty space in the upper third of the frame for text. Do not render any text, letters, numbers, logos or watermarks anywhere in the image."
+    },
+    {
+      "id": "k04_soybeans",
+      "aspect_ratio": "4:5",
+      "prompt": "Overhead flat lay of a rustic wooden bowl filled with fine golden roasted soybean flour (kinako), surrounded by scattered whole dried soybeans and a few ears of grain, on a warm cream linen cloth over a light wood surface. Soft diffused natural daylight, gentle shadows, warm golden and cream palette. Photorealistic, appetising, high key Japanese food advertising photography, very clean composition with generous empty space in the upper half for text. Do not render any text, letters, numbers, logos or watermarks anywhere in the image."
+    },
+    {
+      "id": "k05_baby_eating",
+      "aspect_ratio": "4:5",
+      "prompt": "A happy Japanese baby around 1 year old sitting in a light wooden high chair, smiling with an open mouth, wearing a simple white bib, a small ceramic bowl on the tray in front. Bright clean Japanese living room in soft focus behind, warm natural daylight. The baby is positioned in the LOWER RIGHT of the frame, with clean uncluttered space in the upper left for text. Photorealistic, natural skin tones, realistic proportions and hands, high key Japanese advertising photography, cheerful and warm. Do not render any text, letters, numbers, logos or watermarks anywhere in the image."
+    }
+  ]
 }
