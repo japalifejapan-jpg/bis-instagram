@@ -1,9 +1,4 @@
 models available: 50
 model order: gemini-3.1-flash-image, gemini-3.1-flash-image-preview, gemini-2.5-flash-image, gemini-3.1-flash-lite-image, gemini-3-pro-image, gemini-3-pro-image-preview
-test01_kinakokko_cover gemini-3.1-flash-image full HTTP 429 {   "error": {     "code": 429,     "message": "Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.
-test01_kinakokko_cover gemini-3.1-flash-image-preview full HTTP 429 {   "error": {     "code": 429,     "message": "Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.
-test01_kinakokko_cover gemini-2.5-flash-image full HTTP 429 {   "error": {     "code": 429,     "message": "Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.
-test01_kinakokko_cover gemini-3.1-flash-lite-image full HTTP 429 {   "error": {     "code": 429,     "message": "Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.
-test01_kinakokko_cover gemini-3-pro-image full HTTP 429 {   "error": {     "code": 429,     "message": "Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.
-test01_kinakokko_cover gemini-3-pro-image-preview full HTTP 429 {   "error": {     "code": 429,     "message": "Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.
-test01_kinakokko_cover all models failed
+test01_kinakokko_cover OK with gemini-3.1-flash-image (full)
+test01_kinakokko_cover saved gemini/out/test01_kinakokko_cover.png
