@@ -1,0 +1,120 @@
+name: gemini-image
+on:
+  push:
+    paths:
+      - 'gemini/jobs.json'
+  workflow_dispatch:
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Call Gemini
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          mkdir -p gemini/out
+          python3 - <<'EOF'
+          import base64, json, os, sys, urllib.request, urllib.error
+
+          KEY = os.environ.get("GEMINI_API_KEY", "").strip()
+          log = []
+          def L(*a):
+              s = " ".join(str(x) for x in a)
+              print(s); log.append(s)
+
+          if not KEY:
+              L("ERROR: GEMINI_API_KEY secret is not set")
+              open("gemini/_log.txt", "w").write("\n".join(log)); sys.exit(0)
+
+          def call(url, body=None, method="GET"):
+              req = urllib.request.Request(
+                  url,
+                  data=json.dumps(body).encode() if body else None,
+                  method=method,
+                  headers={"Content-Type": "application/json",
+                           "x-goog-api-key": KEY})
+              return json.load(urllib.request.urlopen(req, timeout=300))
+
+          # 1) どの画像モデルが使えるか確認する
+          models = []
+          try:
+              d = call("https://generativelanguage.googleapis.com/v1beta/models")
+              models = [m["name"].split("/")[-1] for m in d.get("models", [])]
+              json.dump(sorted(models), open("gemini/_models.json", "w"), indent=1)
+              L("models available:", len(models))
+          except Exception as e:
+              L("model list failed:", e)
+
+          PREF = ["gemini-3-pro-image-preview", "gemini-3-flash-image",
+                  "gemini-2.5-flash-image", "gemini-2.5-flash-image-preview",
+                  "gemini-2.0-flash-preview-image-generation"]
+          model = next((m for m in PREF if m in models), None)
+          if model is None:
+              model = next((m for m in models if "image" in m and "embed" not in m), None)
+          if model is None:
+              model = "gemini-2.5-flash-image"
+          L("using model:", model)
+
+          jobs = json.load(open("gemini/jobs.json"))
+          for job in jobs.get("jobs", []):
+              jid = job["id"]
+              parts = [{"text": job["prompt"]}]
+              for src in job.get("source_images", []):
+                  p = src if os.path.exists(src) else None
+                  if p is None:
+                      L(jid, "source missing:", src); continue
+                  mime = "image/png" if p.lower().endswith(".png") else "image/jpeg"
+                  parts.append({"inline_data": {"mime_type": mime,
+                                "data": base64.b64encode(open(p, "rb").read()).decode()}})
+
+              body = {"contents": [{"parts": parts}],
+                      "generationConfig": {"responseModalities": ["IMAGE"]}}
+              if job.get("aspect_ratio"):
+                  body["generationConfig"]["imageConfig"] = {"aspectRatio": job["aspect_ratio"]}
+
+              url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+              try:
+                  r = call(url, body, "POST")
+              except urllib.error.HTTPError as e:
+                  detail = e.read()[:500].decode("utf-8", "replace")
+                  L(jid, "HTTP", e.code, detail)
+                  # responseModalities 非対応のモデル向けに一度だけ素で再試行
+                  try:
+                      body.pop("generationConfig", None)
+                      r = call(url, body, "POST")
+                      L(jid, "retried without generationConfig: ok")
+                  except Exception as e2:
+                      L(jid, "retry failed:", e2); continue
+              except Exception as e:
+                  L(jid, "failed:", e); continue
+
+              saved = 0
+              for cand in r.get("candidates", []):
+                  for i, part in enumerate(cand.get("content", {}).get("parts", [])):
+                      blob = part.get("inlineData") or part.get("inline_data")
+                      if not blob:
+                          if part.get("text"):
+                              L(jid, "text reply:", part["text"][:200])
+                          continue
+                      out = f"gemini/out/{jid}.png" if saved == 0 else f"gemini/out/{jid}_{saved}.png"
+                      open(out, "wb").write(base64.b64decode(blob["data"]))
+                      L(jid, "saved", out)
+                      saved += 1
+              if saved == 0:
+                  L(jid, "no image returned")
+
+          open("gemini/_log.txt", "w").write("\n".join(log))
+          EOF
+
+      - name: Commit
+        run: |
+          git config user.name "bis-bot"
+          git config user.email "bot@bis.local"
+          git add gemini
+          git diff --cached --quiet || git commit -m "gemini image output"
+          git push
