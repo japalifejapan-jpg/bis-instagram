@@ -1,4 +1,10 @@
 models available: 50
 model order: gemini-3.1-flash-image, gemini-3.1-flash-image-preview, gemini-2.5-flash-image, gemini-3.1-flash-lite-image, gemini-3-pro-image, gemini-3-pro-image-preview
-test01_kinakokko_cover OK with gemini-3.1-flash-image (full)
-test01_kinakokko_cover saved gemini/out/test01_kinakokko_cover.png
+k02_problem OK with gemini-3.1-flash-image (full)
+k02_problem saved gemini/out/k02_problem.png
+k03_mixing OK with gemini-3.1-flash-image (full)
+k03_mixing saved gemini/out/k03_mixing.png
+k04_soybeans OK with gemini-3.1-flash-image (full)
+k04_soybeans saved gemini/out/k04_soybeans.png
+k05_baby_eating OK with gemini-3.1-flash-image (full)
+k05_baby_eating saved gemini/out/k05_baby_eating.png
