@@ -50,15 +50,16 @@ jobs:
           except Exception as e:
               L("model list failed:", e)
 
-          PREF = ["gemini-3-pro-image-preview", "gemini-3-flash-image",
-                  "gemini-2.5-flash-image", "gemini-2.5-flash-image-preview",
-                  "gemini-2.0-flash-preview-image-generation"]
-          model = next((m for m in PREF if m in models), None)
-          if model is None:
-              model = next((m for m in models if "image" in m and "embed" not in m), None)
-          if model is None:
-              model = "gemini-2.5-flash-image"
-          L("using model:", model)
+          # 無料枠で通るものを先に。有料クレジットが要るモデルは後ろへ。
+          PREF = ["gemini-3.1-flash-image", "gemini-3.1-flash-image-preview",
+                  "gemini-2.5-flash-image", "gemini-3.1-flash-lite-image",
+                  "gemini-3-pro-image", "gemini-3-pro-image-preview"]
+          order = [m for m in PREF if m in models]
+          order += [m for m in models
+                    if "image" in m and "embed" not in m and m not in order]
+          if not order:
+              order = ["gemini-2.5-flash-image"]
+          L("model order:", ", ".join(order[:6]))
 
           jobs = json.load(open("gemini/jobs.json"))
           for job in jobs.get("jobs", []):
@@ -72,26 +73,33 @@ jobs:
                   parts.append({"inline_data": {"mime_type": mime,
                                 "data": base64.b64encode(open(p, "rb").read()).decode()}})
 
-              body = {"contents": [{"parts": parts}],
-                      "generationConfig": {"responseModalities": ["IMAGE"]}}
+              base_body = {"contents": [{"parts": parts}],
+                           "generationConfig": {"responseModalities": ["IMAGE"]}}
               if job.get("aspect_ratio"):
-                  body["generationConfig"]["imageConfig"] = {"aspectRatio": job["aspect_ratio"]}
+                  base_body["generationConfig"]["imageConfig"] = {"aspectRatio": job["aspect_ratio"]}
 
-              url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-              try:
-                  r = call(url, body, "POST")
-              except urllib.error.HTTPError as e:
-                  detail = e.read()[:500].decode("utf-8", "replace")
-                  L(jid, "HTTP", e.code, detail)
-                  # responseModalities 非対応のモデル向けに一度だけ素で再試行
-                  try:
-                      body.pop("generationConfig", None)
-                      r = call(url, body, "POST")
-                      L(jid, "retried without generationConfig: ok")
-                  except Exception as e2:
-                      L(jid, "retry failed:", e2); continue
-              except Exception as e:
-                  L(jid, "failed:", e); continue
+              r = None
+              for model in order:
+                  url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+                  for attempt in ("full", "bare"):
+                      body = json.loads(json.dumps(base_body))
+                      if attempt == "bare":
+                          body.pop("generationConfig", None)
+                      try:
+                          r = call(url, body, "POST")
+                          L(jid, "OK with", model, f"({attempt})")
+                          break
+                      except urllib.error.HTTPError as e:
+                          msg = e.read()[:300].decode("utf-8", "replace").replace("\n", " ")
+                          L(jid, model, attempt, "HTTP", e.code, msg[:200])
+                          if e.code in (401, 403, 429):
+                              break  # このモデルは諦めて次のモデルへ
+                      except Exception as e:
+                          L(jid, model, attempt, "failed:", e)
+                  if r is not None:
+                      break
+              if r is None:
+                  L(jid, "all models failed"); continue
 
               saved = 0
               for cand in r.get("candidates", []):
